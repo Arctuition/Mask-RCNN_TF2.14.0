@@ -63,18 +63,28 @@ class FloorPlanConfig(Config):
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 4
+    IMAGES_PER_GPU = 8
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + 3  # Background + wall, door, window
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 2000
+    STEPS_PER_EPOCH = 1000
 
     # Skip detections with < 70% confidence
     DETECTION_MIN_CONFIDENCE = 0.7
 
     BACKBONE = "resnet50"
+
+    IMAGE_MIN_DIM = 512
+    IMAGE_MAX_DIM = 512
+
+    # Length of square anchor side in pixels
+    RPN_ANCHOR_SCALES = (16, 32, 64, 128, 256)
+
+    # Ratios of anchors at each cell (width/height)
+    # A value of 1 represents a square anchor, and 0.5 is a wide anchor
+    RPN_ANCHOR_RATIOS = [0.25, 1, 4]
 
 
 ############################################################
