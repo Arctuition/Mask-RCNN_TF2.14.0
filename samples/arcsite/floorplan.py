@@ -92,17 +92,29 @@ class FloorPlanConfig(Config):
 ############################################################
 
 class FloorPlanDataset(utils.Dataset):
-
-    def load_floorPlan(self, dataset_dir, subset):
-        """Load a subset of the FloorPlan dataset.
-        dataset_dir: Root directory of the dataset.
-        subset: Subset to load: train or val
-        """
+    def __init__(self):
+        super().__init__(self)
         # Add classes. We have only one class to add.
         self.add_class("arcsite", 1, "wall")
         self.add_class("arcsite", 2, "door")
         self.add_class("arcsite", 3, "window")
 
+    def load_floorPlan(self, dataset_dirs, subset):
+        """Load a subset of the FloorPlan dataset.
+        dataset_dirs: Root directories of the dataset separated by comma.
+        subset: Subset to load: train or val
+        """
+        # Train or validation dataset?
+        assert subset in ["train", "val"]
+
+        for dataset_dir in dataset_dirs.split(","):
+            self._add_floorPlan(dataset_dir, subset)
+
+    def _add_floorPlan(self, dataset_dir, subset):
+        """Load a subset of the FloorPlan dataset.
+        dataset_dir: Root directory of the dataset.
+        subset: Subset to load: train or val
+        """
         # Train or validation dataset?
         assert subset in ["train", "val"]
     
@@ -174,7 +186,7 @@ class FloorPlanDataset(utils.Dataset):
 
             self.add_image(
                 "arcsite",
-                image_id=image['id'],  # use file name as a unique image id
+                image_id=image_path,  # use file name as a unique image id
                 path=image_path,
                 width=image['width'], height=image['height'],
                 polygons=polygons)
