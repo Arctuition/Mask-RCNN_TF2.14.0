@@ -108,6 +108,7 @@ class FloorPlanDataset(utils.Dataset):
         assert subset in ["train", "val"]
 
         for dataset_dir in dataset_dirs.split(","):
+            print(f'-- add dataset {dataset_dir} for {subset}')
             self._add_floorPlan(dataset_dir, subset)
 
     def _add_floorPlan(self, dataset_dir, subset):
