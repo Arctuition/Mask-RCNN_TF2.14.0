@@ -3,6 +3,7 @@
 python version: 3.10.12
 
 create "dataset" folder and place arcsite floor plan dataset "coco_512_keep_ratio" under it
+if has multiple dataset, use comma to separate their path in --dataset option
 
 ```
 virtualenv env
@@ -12,7 +13,7 @@ pip install -r requirements.txt
 pip install ipykernel
 
 cd samples/arcsite/
-python floorplan.py train --dataset=dataset/coco_512_keep_ratio,dataset2/coco_512_keep_ratio --weights=coco
+python floorplan.py train --dataset=dataset/cc5k/coco_512_keep_ratio,dataset/webdata/coco_512_keep_ratio --weights=coco
 ```
 
 ## Run Jupyter notebooks
